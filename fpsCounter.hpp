@@ -1,5 +1,5 @@
-#ifndef FPSCOUNTER_HPP
-#define FPSCOUNTER_HPP
+#ifndef GOSU_EXT_FPSCOUNTER_HPP
+#define GOSU_EXT_FPSCOUNTER_HPP
 
 #include "Gosu.hpp"
 
@@ -49,72 +49,40 @@ namespace Gosu
 
 		Gosu::Font *font;
 
-		int currentSecond, accumFPS;
-		double fps;
 		
 		Gosu::Color boxColor, lineColor, lineLandmarkColor;
 
-
-		// unity port
 		float updateInterval;
 		float accum; // FPS accumulated over the interval
 		int frames; // Frames drawn over the interval
 		float timeleft; // Left time for current interval
 		int lastFrameCompleted;
+		double fps;
 
 	public:
 		
-		/*fpsCounter(Gosu::Graphics *graphics, int x, int y, int width, int height);
-
-		void updateFPS();
-		void draw();*/
-
 		fpsCounter(Gosu::Graphics *graphics, int x, int y, int width, int height)
+			: graphics(graphics), x(x), y(y), width(width), height(height)
 		{
-			this->graphics = graphics;
-			this->x = x;
-			this->y = y;
-			this->width = width;
-			this->height = height;
-
-			this->logtime = Gosu::milliseconds();
-
 			font = new Gosu::Font(*graphics, Gosu::defaultFontName(), 14);
-
-			this->currentSecond = 0;
-			this->accumFPS = 0;
-			this->fps = 0;
 
 			this->boxColor = Gosu::Color(255, 255, 255, 255);
 			this->lineColor = Gosu::Color(220, 255, 255, 255);
 			this->lineLandmarkColor = Gosu::Color(65, 255, 255, 255);
 
-			// unity port
 			this->updateInterval = 0.03f;
 			this->timeleft = this->updateInterval;
 			this->accum = 0.0f;
 			this->frames = 0;
 			this->lastFrameCompleted = Gosu::milliseconds();
+			this->logtime = Gosu::milliseconds();
+			this->fps = 0;
 		}
 
 		void updateFPS()
 		{
-			/*int newSecond = Gosu::milliseconds() / 1000; 
-
-			if (newSecond != currentSecond) { fps = accumFPS; accumFPS = 0; currentSecond = newSecond; } else { accumFPS++; }
-
-			bool landmark = false;
-			if(Gosu::milliseconds() > (unsigned int)logtime + 1000)
-			{
-				logtime = Gosu::milliseconds();
-				landmark = true;
-			}
-			
-			this->fpslist.push_back(FpsPoint(fps, landmark));
-			*/
-
-			// unity port
-			float deltaTime = Gosu::milliseconds() - this->lastFrameCompleted;
+			// based on http://www.unifycommunity.com/wiki/index.php?title=FramesPerSecond
+			float deltaTime = (float)Gosu::milliseconds() - this->lastFrameCompleted;
 			this->timeleft -= deltaTime/1000.0f;
 			this->accum += 1000.0f/deltaTime;
 			this->frames++;
@@ -177,6 +145,7 @@ namespace Gosu
 						this->graphics->drawLine(x, topLeft.y + height, lineLandmarkColor, x+1, topLeft.y + val, lineLandmarkColor, z - 1);
 					}
 
+					// Ignore negative fps, only happens a few times after init
 					if(fpslist.at(i).fps > 0)
 					{
 						avg += fpslist.at(i).fps;
@@ -188,8 +157,6 @@ namespace Gosu
 
 				font->draw(L"Avg: " + boost::lexical_cast<wstring>(avg).substr(0,4), topLeft.x+4, topLeft.y+14, z+1, 1, 1, this->boxColor);
 			}
-			
-
 		}
 	};
 }
