@@ -61,8 +61,8 @@ namespace Gosu
 
 	public:
 		
-		fpsCounter(Gosu::Graphics *graphics, int x, int y, int width, int height)
-			: graphics(graphics), x(x), y(y), width(width), height(height)
+		fpsCounter(Gosu::Graphics *graphics, int x, int y, int width, int height, float updateInterval = 0.03f)
+			: graphics(graphics), x(x), y(y), width(width), height(height), updateInterval(updateInterval)
 		{
 			font = new Gosu::Font(*graphics, Gosu::defaultFontName(), 14);
 
@@ -70,7 +70,7 @@ namespace Gosu
 			this->lineColor = Gosu::Color(220, 255, 255, 255);
 			this->lineLandmarkColor = Gosu::Color(65, 255, 255, 255);
 
-			this->updateInterval = 0.03f;
+			//this->updateInterval = 0.03f;
 			this->timeleft = this->updateInterval;
 			this->accum = 0.0f;
 			this->frames = 0;
