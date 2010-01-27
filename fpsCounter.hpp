@@ -53,14 +53,13 @@ namespace Gosu
 		Gosu::Color boxColor, lineColor, lineLandmarkColor;
 
 		float updateInterval;
-		float accum; // FPS accumulated over the interval
-		int frames; // Frames drawn over the interval
-		float timeleft; // Left time for current interval
+		float accum;
+		int frames;
+		float timeleft;
 		int lastFrameCompleted;
 		double fps;
 
-	public:
-		
+	public:	
 		fpsCounter(Gosu::Graphics *graphics, int x, int y, int width, int height, float updateInterval = 0.03f)
 			: graphics(graphics), x(x), y(y), width(width), height(height), updateInterval(updateInterval)
 		{
@@ -70,7 +69,6 @@ namespace Gosu
 			this->lineColor = Gosu::Color(220, 255, 255, 255);
 			this->lineLandmarkColor = Gosu::Color(65, 255, 255, 255);
 
-			//this->updateInterval = 0.03f;
 			this->timeleft = this->updateInterval;
 			this->accum = 0.0f;
 			this->frames = 0;
@@ -78,6 +76,11 @@ namespace Gosu
 			this->logtime = Gosu::milliseconds();
 			this->fps = 0;
 		}
+        
+        void setUpdateInterval(float interval)
+        {
+            this->updateInterval = interval;
+        }
 
 		void updateFPS()
 		{
