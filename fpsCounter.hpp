@@ -1,7 +1,7 @@
 #ifndef GOSU_EXT_FPSCOUNTER_HPP
 #define GOSU_EXT_FPSCOUNTER_HPP
 
-#include "Gosu.hpp"
+#include <Gosu/Gosu.hpp>
 
 #include <deque>
 #include <math.h>
@@ -45,7 +45,7 @@ namespace Gosu
 
 		int logtime;
 
-		deque<FpsPoint> fpslist;
+		std::deque<FpsPoint> fpslist;
 
 		Gosu::Font *font;
 
@@ -125,7 +125,7 @@ namespace Gosu
 			this->graphics->drawLine(downRight.x, topLeft.y, boxColor, downRight.x, downRight.y, boxColor, z); // Left
 
 			// Draw fps 
-			font->draw(L"Cur: " + boost::lexical_cast<wstring>(fps), topLeft.x+4, topLeft.y+2, z+1, 1, 1, this->boxColor);
+			font->draw(L"Cur: " + boost::lexical_cast<std::wstring>(fps), topLeft.x+4, topLeft.y+2, z+1, 1, 1, this->boxColor);
 
 			// Draw graph, if we are on it, calc avg fps 
 			double avg = 0;
@@ -158,7 +158,7 @@ namespace Gosu
 				avg = avg / avgCount;
 
 
-				font->draw(L"Avg: " + boost::lexical_cast<wstring>(avg).substr(0,4), topLeft.x+4, topLeft.y+14, z+1, 1, 1, this->boxColor);
+				font->draw(L"Avg: " + boost::lexical_cast<std::wstring>(avg).substr(0,4), topLeft.x+4, topLeft.y+14, z+1, 1, 1, this->boxColor);
 			}
 		}
 	};
