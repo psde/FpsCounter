@@ -33,7 +33,7 @@ struct FpsPoint
 
 namespace Gosu
 {
-	class fpsCounter
+	class FpsCounter
 	{
 	private:
 		Gosu::Graphics *graphics;
@@ -44,7 +44,7 @@ namespace Gosu
 
 		std::deque<FpsPoint> fpslist;
 
-		Gosu::Font *font;
+		boost::shared_ptr<Gosu::Font> font;
 
 		
 		Gosu::Color boxColor, lineColor, lineLandmarkColor;
@@ -57,10 +57,10 @@ namespace Gosu
 		double fps;
 
 	public:	
-		fpsCounter(Gosu::Graphics *graphics, int x, int y, int width, int height, float updateInterval = 0.03f)
+		FpsCounter(Gosu::Graphics *graphics, int x, int y, int width, int height, float updateInterval = 0.03f)
 			: graphics(graphics), x(x), y(y), width(width), height(height), updateInterval(updateInterval)
 		{
-			font = new Gosu::Font(*graphics, Gosu::defaultFontName(), 14);
+			font.reset(new Gosu::Font(*graphics, Gosu::defaultFontName(), 14));
 
 			this->boxColor = Gosu::Color(255, 255, 255, 255);
 			this->lineColor = Gosu::Color(220, 255, 255, 255);
