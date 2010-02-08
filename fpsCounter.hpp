@@ -3,15 +3,12 @@
 
 #include <Gosu/Gosu.hpp>
 
+#include <boost/scoped_ptr.hpp>
+#include <boost/shared_ptr.hpp>
+#include <boost/lexical_cast.hpp>
+
 #include <deque>
 #include <math.h>
-
-template <class T> T clamp (T a, T min, T max) {
-  T result;
-  result = (a > max)? max : a;
-  result = (result < min)? min : result;
-  return (result);
-}
 
 struct Point
 {
