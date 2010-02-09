@@ -66,7 +66,7 @@ namespace GosuEx
 			this->lineLandmarkColor = Gosu::Color(65, 255, 255, 255);
 
 			this->timeleft = this->updateInterval;
-			this->accum = 0.0f;
+			this->accum = 0.0;
 			this->frames = 0;
 			this->lastFrameCompleted = Gosu::milliseconds();
 			this->logtime = Gosu::milliseconds();
@@ -85,8 +85,8 @@ namespace GosuEx
 		{
 			// based on http://www.unifycommunity.com/wiki/index.php?title=FramesPerSecond
 			double deltaTime = Gosu::milliseconds() - this->lastFrameCompleted;
-			this->timeleft -= deltaTime/1000.0f;
-			this->accum += 1000.0f/deltaTime;
+			this->timeleft -= deltaTime/1000.0;
+			this->accum += 1000.0/deltaTime;
 			this->frames++;
 			this->fps = Gosu::round(accum/frames);
 
