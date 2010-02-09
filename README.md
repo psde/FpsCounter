@@ -1,5 +1,6 @@
 #FpsCounter
 A simple fps counter extension for gosu
+
 ![Screenshot.](http://bayimg.com/image/makemaacf.jpg)
 
 #Usage
@@ -8,23 +9,21 @@ A simple fps counter extension for gosu
  
 #Example usage
  
- [code]
-class Window : public Gosu::Window
-{
-private:
-	GosuEx::FpsCounter fps;
-    
-public:
-	Window()
-		:	Gosu::Window(1024, 768, false), fps(&graphics(), 1024-210, 10, 200, 100)
-	{
-		drawTimes = 100;
-	}
+        class Window : public Gosu::Window
+        {
+        private:
+            GosuEx::FpsCounter fps;
+            
+        public:
+            Window()
+                :	Gosu::Window(1024, 768, false), fps(&graphics(), 1024-210, 10, 200, 100)
+            {
+                drawTimes = 100;
+            }
 
-	void draw()
-	{
-		fps.updateFPS();
-		fps.draw();
-	}
-}
-[/code]
+            void draw()
+            {
+                fps.updateFPS();
+                fps.draw();
+            }
+        }
