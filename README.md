@@ -18,11 +18,12 @@ A simple fps counter extension for gosu
         Window()
             :	Gosu::Window(1024, 768, false), fps(&graphics(), 1024-210, 10, 200, 100)
         {
-            
+            [...]
         }
 
         void draw()
         {
+            [draw your scene here]
             fps.updateFPS();
             fps.draw();
         }
